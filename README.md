@@ -64,8 +64,13 @@ https://localhost:3000
 - After Fix: Only users with role "admin" can access it.
 - **Screenshot Tip**: Forbidden message before fix, proper access after fix.
 
+
 ### ✅ Encryption (HTTPS - TLS/SSL)
 
 - Verify that your app runs on `https://localhost:3000`.
 - Click the lock icon in your browser to view the self-signed certificate.
 - **Screenshot Tip**: Warning page and lock icon showing HTTPS.
+This project uses self-signed SSL certificates (key.pem and cert.pem) to enable HTTPS for secure communication. These files are required to run the application locally with TLS/SSL encryption.
+
+Note:  
+Although key.pem and cert.pem are part of the local project setup, they were not added to GitHub for security reasons. 
