@@ -1,47 +1,71 @@
-# Secure-Web-Application
-This project implements a secure web application with user management functionality, addressing common security vulnerabilities. The application includes user registration, login, and dashboard features, with mitigations for SQL injection, weak password storage, XSS, access control issues, and encryption.
+# Secure Web Application
 
-# Acknowledgement
-We would like to acknowledge that we used OpenAI’s ChatGPT as a supplementary tool while working on this project. We used it for language refinement and clarification on technical concepts. 
+## Overview
 
-# Features
-1. User registration and login
+This Node.js + Express application demonstrates common web security vulnerabilities and how to fix them.  
+It includes:
 
-2. Dashboard displaying user information
+- User registration and login  
+- Secure password storage (MD5 → bcrypt)  
+- SQL Injection protection  
+- Cross-Site Scripting (XSS) prevention  
+- Role-Based Access Control (RBAC)  
+- HTTPS encryption using self-signed certificates  
 
-3. Secure session management
+---
 
-4. Role-based access control (admin/user roles)
+## Steps to Run the Application
 
-5. Comment system (for XSS demonstration)
+1. **Install dependencies**
+```bash
+npm install
+```
 
-# Security Implementations
-1. SQL Injection Mitigation: Uses parameterized queries
+2. **Generate HTTPS certificates (self-signed)**
+```bash
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+```
 
-2. Password Storage: Uses bcrypt for secure hashing
+3. **Run the application**
+```bash
+node server.js
+```
 
-3. XSS Prevention: (Intentionally left vulnerable for grading purposes)
+4. **Open the application in your browser**
+```
+https://localhost:3000
+```
 
-4. Access Control: Role-based restrictions (admin pages protected)
+---
 
-5. Encryption: HTTPS implemented with TLS/SSL
+## How to Test Security Features
 
-# How to Run
-1. Install dependencies: `npm install express sqlite3 express-session bcrypt pug`
+### ✅ SQL Injection
 
-2. Generate SSL certificates and place in `/ssl` folder
+- Initially: Try logging in using `' OR '1'='1` as the username to bypass authentication.
+- After Fix: The same attempt should fail.
+- **Screenshot Tip**: Before and after fixing `login` route (using raw SQL vs. prepared statements).
 
-3. Start server: `node server.js`
+### ✅ Weak Password Storage (MD5 → bcrypt)
 
-4. Access at: `https://localhost:3000`
+- Initially: Check database for MD5 hashed passwords.
+- After Fix: Passwords are hashed using bcrypt.
+- **Screenshot Tip**: Database contents before and after switching to bcrypt.
 
-# Testing Security Features
-1. SQL Injection: Try `' OR '1'='1` in login - should fail
+### ✅ Cross-Site Scripting (XSS)
 
-2. Password Storage: Check database to see bcrypt hashes
+- Initially: Submit a comment like `<script>alert('XSS')</script>` on dashboard.
+- After Fix: The script tag should appear as text and not execute.
+- **Screenshot Tip**: Page before and after adding input sanitization.
 
-3. XSS: Try `<script>alert(1)</script>` in comments - intentionally vulnerable
+### ✅ Access Control (RBAC)
 
-4. Access Control: Try accessing `/admin` as regular user - should be blocked
+- Initially: Login as a regular user and try to access `/admin`.
+- After Fix: Only users with role "admin" can access it.
+- **Screenshot Tip**: Forbidden message before fix, proper access after fix.
 
-5. HTTPS: Verify padlock icon in browser
+### ✅ Encryption (HTTPS - TLS/SSL)
+
+- Verify that your app runs on `https://localhost:3000`.
+- Click the lock icon in your browser to view the self-signed certificate.
+- **Screenshot Tip**: Warning page and lock icon showing HTTPS.
