@@ -1,6 +1,9 @@
 # Secure-Web-Application
 This project implements a secure web application with user management functionality, addressing common security vulnerabilities. The application includes user registration, login, and dashboard features, with mitigations for SQL injection, weak password storage, XSS, access control issues, and encryption.
 
+# Acknowledgement
+We would like to acknowledge that we used OpenAI’s ChatGPT as a supplementary tool while working on this project. We used it for language refinement and clarification on technical concepts. 
+
 # Features
 1. User registration and login
 
