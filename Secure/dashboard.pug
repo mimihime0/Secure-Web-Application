@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Dashboard
+    link(rel="stylesheet", href="/style.css")
+
+  body
+    h2 Welcome to Your Dashboard, #{username}!
+
+    h3 Your Profile Details:
+    div.dashb
+        p
+        strong Username:
+        |  #{username}
+        p
+        strong Email:
+        |  #{email}
+        p
+        strong Major:
+        |  #{major || 'Not provided'} 
+
+
+        h3 Leave a Comment
+        form(action="/comment", method="POST")
+            input(type="text", name="comment", placeholder="Type your comment here")
+            button(type="submit") Submit
+
+        h3 All Comments
+        ul
+            each c in comments
+                li!= c
+        // Basic logout link (we'll create the logout route later)
+        p
+        a(href="/logout") Logout
